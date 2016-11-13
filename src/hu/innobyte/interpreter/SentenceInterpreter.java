@@ -35,6 +35,10 @@ public class SentenceInterpreter {
 	return deleteUnnecessarySpace(result);
     }
 
+    public float checkTwoSentence(String sentenceOne,String sentenceTwo) {
+    	return checker.checkTwoSentence(sentenceOne, sentenceTwo);
+    }
+    
     private String deleteUnnecessarySpace(String sentence) {
 	String resultSentence = "";
 	sentence += " ";

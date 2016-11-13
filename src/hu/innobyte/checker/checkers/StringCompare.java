@@ -32,7 +32,7 @@ public class StringCompare implements Checker {
 		    float actDistance = metric.compare(word, nextWord);
 	
 		    if (actDistance == 1) {
-			return word;
+		    	return word;
 		    }
 	
 		    if (actDistance > distance && minDistance < actDistance) {
@@ -49,17 +49,19 @@ public class StringCompare implements Checker {
 
     @Override
     public void init(CheckerInitData checkerInit) {
-    	File file = new File(checkerInit.getFilePath());
-    	try {
-	    	    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-	    		String line = "";
-	
-	    		while ((line = br.readLine()) != null) {
-	    		    words.add(line);
-	    		}
-    	    }
-    	} catch (IOException e) {
-    	    System.err.println(String.format("Error in CheckerInit. Exception: %s, message: %s",e.getClass(),e.getMessage()));
+    	if (checkerInit.getFilePath() != null) {
+	    	File file = new File(checkerInit.getFilePath());
+	    	try {
+		    	    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+		    		String line = "";
+		
+		    		while ((line = br.readLine()) != null) {
+		    		    words.add(line);
+		    		}
+	    	    }
+	    	} catch (IOException e) {
+	    	    System.err.println(String.format("Error in CheckerInit. Exception: %s, message: %s",e.getClass(),e.getMessage()));
+	    	}
     	}
     }
 
@@ -67,4 +69,13 @@ public class StringCompare implements Checker {
     public CheckerType getCheckerType() {
 	return CheckerType.StringComparator;
     }
+
+	@Override
+	public float checkTwoSentence(String sentenceOne, String sentenceTwo) {
+	    StringMetric metric = with(new JaroWinkler())
+				 .simplify(Simplifiers.toLowerCase())
+				 .build();
+	    
+		return metric.compare(sentenceOne, sentenceTwo);
+	}
 }
