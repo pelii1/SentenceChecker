@@ -3,19 +3,22 @@ package hu.innobyte.checker.checkers;
 public class Repeater implements Checker {
 
     public String check(String word) {
-	return word;
+    	return word;
     }
 
     public void setDistance(float distance) {
     }
 
     public void init(CheckerInitData checkerInit) {
-	// TODO Auto-generated method stub
-
     }
 
     @Override
     public CheckerType getCheckerType() {
-	return CheckerType.Repeater;
+    	return CheckerType.Repeater;
     }
+
+	@Override
+	public float checkTwoSentence(String sentenceOne, String sentenceTwo) {
+		return sentenceOne.equalsIgnoreCase(sentenceTwo) ? 1 : 0;
+	}
 }

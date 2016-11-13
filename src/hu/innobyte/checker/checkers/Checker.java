@@ -8,4 +8,6 @@ public interface Checker {
     public void init(CheckerInitData checkerInit);
 
     public CheckerType getCheckerType();
+    
+    public float checkTwoSentence(String sentenceOne,String sentenceTwo);
 }
